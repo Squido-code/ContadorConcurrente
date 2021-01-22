@@ -3,13 +3,17 @@ package com.guillermo.examen;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * @author Guillermo Suarez
  */
 
-public class AppController {
+public class AppController implements Initializable {
     public TextField tfInicial,tfFinal;
     public Label lbCompletado,lbEstado,lbProgreso;
     public ProgressBar pgProgreso;
@@ -23,6 +27,7 @@ public class AppController {
         //comprobamos que el valor inical es mayor que el final
         valorInicial = Integer.parseInt(tfInicial.getText());
         valorFinal = Integer.parseInt(tfFinal.getText());
+
         if(valorInicial>valorFinal){
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Aviso");
@@ -133,6 +138,15 @@ public class AppController {
         pgProgreso.setProgress(0);
         lbCompletado.setText("");
         lbProgreso.setText("");
+
+        if(btPausar.getText() == "continuar"){
+            btPausar.setText("pausar");
+            lbEstado.setText("");
+        }
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        btPausar.setText("pausar");//por alguna razon no coge bien el texto y tengo que editarlo aqui.
+    }
 }
