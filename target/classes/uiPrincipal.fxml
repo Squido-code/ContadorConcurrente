@@ -15,13 +15,14 @@
             <Label layoutX="280.0" layoutY="62.0" text="Valor final" />
             <TextField fx:id="tfInicial" layoutX="78.0" layoutY="79.0" prefHeight="25.0" prefWidth="62.0" />
             <TextField fx:id="tfFinal" layoutX="276.0" layoutY="79.0" prefHeight="25.0" prefWidth="62.0" />
-            <Button fx:id="btIniciar" layoutX="83.0" layoutY="147.0" mnemonicParsing="false" onAction="#iniciar" text="Iniciar" />
+            <Button fx:id="btIniciar" layoutX="61.0" layoutY="122.0" mnemonicParsing="false" onAction="#iniciar" text="Iniciar" />
             <Button fx:id="btPausar" layoutX="185.0" layoutY="147.0" mnemonicParsing="false" onAction="#pausar" text="Pausar" />
             <Button fx:id="btDetener" layoutX="281.0" layoutY="147.0" mnemonicParsing="false" onAction="#detener" text="Detener" />
             <ProgressBar fx:id="pgProgreso" layoutX="85.0" layoutY="207.0" prefHeight="18.0" prefWidth="255.0" progress="0.0" />
             <Label fx:id="lbProgreso" layoutX="95.0" layoutY="237.0" />
             <Label fx:id="lbCompletado" layoutX="95.0" layoutY="268.0" />
             <Label fx:id="lbEstado" layoutX="197.0" layoutY="190.0" />
+            <Button fx:id="btCuentaAtras" layoutX="39.0" layoutY="160.0" mnemonicParsing="false" onAction="#inicioCuentaAtras" text="Iniciar cuenta atrás" />
          </children>
     </AnchorPane>
   </children>

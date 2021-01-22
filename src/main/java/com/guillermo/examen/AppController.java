@@ -35,6 +35,7 @@ public class AppController {
 
         pgProgreso.progressProperty()
                 .bind(hilo.progressProperty());
+        pgProgreso.getProgress();
         hilo.messageProperty()
                 .addListener((observableValue, oldValue, newValue) -> {
                     lbCompletado.setText(newValue+" de "+ valorFinal);
@@ -63,6 +64,53 @@ public class AppController {
 
         new Thread(hilo).start();
 
+    }
+    @FXML
+    public void inicioCuentaAtras (){
+
+        valorInicial = Integer.parseInt(tfInicial.getText());
+        valorFinal = Integer.parseInt(tfFinal.getText());
+
+        if(valorInicial<valorFinal){
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Aviso");
+            alerta.setContentText("El valor final no puede superar al valor inicial");
+            alerta.showAndWait();
+            return;
+        }
+        //creamos el hilo con la cuenta
+        hilo = new Cuenta(valorInicial,valorFinal);
+
+        pgProgreso.progressProperty()
+                .bind(hilo.progressProperty());
+        pgProgreso.getProgress();
+        hilo.messageProperty()
+                .addListener((observableValue, oldValue, newValue) -> {
+                    lbCompletado.setText(newValue+" de "+ valorFinal);
+                    double progreso = (Integer.parseInt(newValue)-valorInicial)* 100/(valorFinal-valorInicial);
+                    lbProgreso.setText(String.valueOf(progreso) +  " %");
+                });
+
+
+        hilo.setOnSucceeded((WorkerStateEvent event2 ) -> {
+            if(!hilo.isDetener()){
+                Alert info = new Alert(Alert.AlertType.INFORMATION);
+                info.setTitle("Informacion");
+                info.setContentText("La cuentra atras ha finalizado");
+                info.showAndWait();
+                pgProgreso.progressProperty()
+                        .unbind();
+                pgProgreso.setProgress(0);
+                lbCompletado.setText("");
+                lbProgreso.setText("");
+            }
+        });
+        //comprobamos que no este detenido y los reiniciamos
+        if(hilo.isDetener()){
+            hilo.setDetener(false);
+        }
+
+        new Thread(hilo).start();
     }
     @FXML
     public void pausar(Event event){

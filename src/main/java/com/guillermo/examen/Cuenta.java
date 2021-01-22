@@ -21,31 +21,60 @@ public class Cuenta extends Task<Integer> {
 
     @Override
     protected Integer call() throws Exception {
+        if(valorInicial<valorFinal){
+            for (int i = valorInicial; i<=valorFinal; i++){
+                //pausar el proceso
+                while (pausado){
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                //detener el proceso
+                if(detener){
+                    break;
+                }
+                //calculos para la barra de progreso y el indicador de la cuenta
+                int proporcion = valorFinal-valorInicial;
+                double completado = (i-valorInicial)/(double)proporcion;
 
-        for (int i = valorInicial; i<=valorFinal; i++){
-            //pausar el proceso
-            while (pausado){
+                updateProgress(completado,1);
+                updateMessage(String.valueOf(i));
+
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
-            //detener el proceso
-            if(detener){
-                break;
-            }
-            //calculos para la barra de progreso y el indicador de la cuenta
-            int proporcion = valorFinal-valorInicial;
-            double completado = (i-valorInicial)/(double)proporcion;
+        }
 
-            updateProgress(completado,1);
-            updateMessage(String.valueOf(i));
+        }else {
+            for (int i = valorInicial; i >= valorFinal; i--) {
+                //pausar el proceso
+                while (pausado) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                //detener el proceso
+                if (detener) {
+                    break;
+                }
+                //calculos para la barra de progreso y el indicador de la cuenta
+                int proporcion = valorFinal - valorInicial;
+                double completado = (i - valorInicial) / (double) proporcion;
 
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                updateProgress(completado, 1);
+                updateMessage(String.valueOf(i));
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return null;
